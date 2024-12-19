@@ -1,20 +1,30 @@
-// Star Class: Creates random stars in the background
-class Star {
-  private int myX, myY, mySize;
-  private int myColor;
+// Star.pde
 
-  // Constructor: initializes the position, size, and color of the star
-  public Star() {
-    mySize = (int)(Math.random() * 5);  // Random size between 0 and 5
-    myX = (int)(Math.random() * 500);  // Random X position
-    myY = (int)(Math.random() * 500);  // Random Y position
-    myColor = color((int)(Math.random() * 256), (int)(Math.random() * 256), (int)(Math.random() * 256));  // Random color
+class Star {
+  PVector pos;
+  float speed;
+  
+  // Constructor to initialize the star
+  Star() {
+    pos = new PVector(random(width), random(height));  // Random starting position
+    speed = random(1, 5);  // Random speed for falling stars
   }
 
-  // Method to display the star
-  public void show() {
-    noStroke();  // No border around the star
-    fill(myColor);  // Set the color to the random color
-    ellipse(myX, myY, mySize, mySize);  // Draw the star as an ellipse
+  // Show the star
+  void show() {
+    fill(255);  // White color for stars
+    noStroke();
+    ellipse(pos.x, pos.y, 2, 2);  // Draw the star
+  }
+
+  // Move the star down the screen
+  void move() {
+    pos.y += speed;  // Move down by speed value
+
+    // If the star goes off screen, reset it to the top
+    if (pos.y > height) {
+      pos.y = 0;
+      pos.x = random(width);  // Reset to a random x position
+    }
   }
 }
